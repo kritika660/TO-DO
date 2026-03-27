@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* --- Vanilla Project Legacy CSS Integration --- */
+
+/* Base & Variables */
+:root {
+    --bg-color: #eef2ff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #4f46e5;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #e0e7ff;
+    
+    --priority-high: #ef4444;
+    --priority-medium: #f59e0b;
+    --priority-low: #10b981;
+    
+    --danger: #ef4444;
+    --success: #10b981;
+    
+    --radius-xl: 32px;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    
+    --font-main: 'Outfit', sans-serif;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-theme {
+    --bg-color: #0f172a;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --glass-bg: rgba(30, 41, 59, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --input-bg: rgba(15, 23, 42, 0.8);
+    --primary-light: #1e1b4b;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* Background Shapes Arrays */
+.bg-shape {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -10;
+    opacity: 0.6;
+    animation: drift 20s infinite alternate;
+}
+
+.shape-1 {
+    top: -10%; left: -10%;
+    width: 600px; height: 600px;
+    background: linear-gradient(to bottom right, #818cf8, #c084fc);
+    animation-duration: 25s;
+}
+
+.shape-2 {
+    bottom: -10%; right: -5%;
+    width: 500px; height: 500px;
+    background: linear-gradient(to bottom right, #34d399, #3b82f6);
+    animation-duration: 22s;
+}
+
+.shape-3 {
+    top: 30%; left: 40%;
+    width: 400px; height: 400px;
+    background: linear-gradient(to bottom right, #f472b6, #fb923c);
+    animation-delay: 5s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, -50px) scale(1.1); }
+    100% { transform: translate(-50px, 50px) scale(0.9); }
+}
+
+/* Glass Utilities */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    padding: 1.5rem;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Global inputs inherited from design */
+.app-container {
+    display: flex;
+    max-width: 1400px;
+    height: calc(100vh - 120px); /* Account for navbar */
+    margin: 10px auto 40px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Base custom classes ported to react components */
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+.task-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Drag states */
+.task-item.drag-over-border {
+    border-top: 2px solid var(--primary-color) !important;
+    background: var(--input-bg);
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        margin: 0;
+        height: auto;
+        min-height: calc(100vh - 80px);
+        border-radius: 0;
+        flex-direction: column;
+    }
+}
