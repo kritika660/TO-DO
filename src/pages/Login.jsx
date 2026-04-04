@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext'; 
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ function Login() {
     login({ email, name: email.split('@')[0] });
     navigate('/app');
   };
-
+  
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
@@ -69,7 +69,7 @@ function Login() {
           Don't have an account? <Link to="/register" className="text-indigo-500 font-semibold hover:underline">Sign up</Link>
         </p>
       </div>
-    </motion.div>
+    </motion.div> 
   );
 }
 
